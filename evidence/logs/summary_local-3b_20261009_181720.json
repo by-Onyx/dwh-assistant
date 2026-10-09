@@ -1,0 +1,254 @@
+[
+  {
+    "id": "orders",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "order_id, customer_id, order_date, status",
+    "seconds": 10.53
+  },
+  {
+    "id": "items",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 3.55
+  },
+  {
+    "id": "missing",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 0.72
+  },
+  {
+    "id": "scd2",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 15.14
+  },
+  {
+    "id": "layers",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 0.76
+  },
+  {
+    "id": "quality",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 0.86
+  },
+  {
+    "id": "invalid",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 1.22
+  },
+  {
+    "id": "valid",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 1.27
+  },
+  {
+    "id": "mart",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 1.19
+  },
+  {
+    "id": "clarify",
+    "backend": "local-3b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-3b_baseline_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 0.86
+  },
+  {
+    "id": "orders",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": true,
+    "tool_ok": false,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 2,
+    "answer": "{\"tables\":{\"orders\":{\"fields\":[\"order_id\",\"customer_id\",\"order_date\",\"status\"]}}}",
+    "seconds": 1.3
+  },
+  {
+    "id": "items",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": true,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "keyword_hits": [
+      true,
+      true,
+      false,
+      false
+    ],
+    "repairs": 2,
+    "answer": "Поля: order_id, line_no. Ключ: (order_id,line_no).",
+    "seconds": 0.95
+  },
+  {
+    "id": "missing",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 0.98
+  },
+  {
+    "id": "scd2",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 2.94
+  },
+  {
+    "id": "layers",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 3.08
+  },
+  {
+    "id": "quality",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 2.66
+  },
+  {
+    "id": "invalid",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 1.64
+  },
+  {
+    "id": "valid",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Структура макета прошла проверку: задана гранулярность \"позиция заказа\", факты \"quantity\" и \"revenue\", измерения \"customer\", \"product\" и \"date\". Бизнес-смысл, SQL и реальные данные не проверены.",
+    "seconds": 0.97
+  },
+  {
+    "id": "mart",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 3.27
+  },
+  {
+    "id": "clarify",
+    "backend": "local-3b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-3b_improved_20261009_181720.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Уточните: какова цель аналитики? Какие источники и ключи доступны? Какая гранулярность — что описывает одна строка? Каковы объемы, частота обновления и SLA?",
+    "seconds": 0.52
+  }
+]

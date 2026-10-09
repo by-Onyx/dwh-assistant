@@ -1,0 +1,74 @@
+[
+  {
+    "role": "user",
+    "content": "Вызови catalog для payments."
+  },
+  {
+    "role": "assistant",
+    "content": "<call>{\"name\":\"catalog\",\"arguments\":{\"table\":\"payments\"}}</call>"
+  },
+  {
+    "role": "user",
+    "content": "<observation>{\"error\":\"Таблица отсутствует в учебном каталоге\"}</observation>\nТеперь дай только ответ на исходный вопрос в одном блоке answer."
+  },
+  {
+    "role": "assistant",
+    "content": "<answer>Таблица payments отсутствует в учебном каталоге.</answer>"
+  },
+  {
+    "role": "user",
+    "content": "Используй scd2: как хранить историю сегмента?"
+  },
+  {
+    "role": "assistant",
+    "content": "<call>{\"name\":\"rules\",\"arguments\":{\"topic\":\"scd2\"}}</call>"
+  },
+  {
+    "role": "user",
+    "content": "<observation>{\"rule\":\"SCD2: valid_from, valid_to, is_current; интервалы [from,to). История требует источника изменений.\"}</observation>\nТеперь дай только ответ на исходный вопрос в одном блоке answer."
+  },
+  {
+    "role": "assistant",
+    "content": "<answer>Предлагаю SCD2: версии сегмента с valid_from, valid_to, is_current. Соединение факта: valid_from <= дата продажи < valid_to. Нужен источник истории; текущее состояние не восстанавливает прошлое.</answer>"
+  },
+  {
+    "role": "user",
+    "content": "Проверь grain=\"\", facts=[], dimensions=[\"customer\"]."
+  },
+  {
+    "role": "assistant",
+    "content": "<call>{\"name\":\"check_design\",\"arguments\":{\"design\":{\"grain\":\"\",\"facts\":[],\"dimensions\":[\"customer\"]}}}</call>"
+  },
+  {
+    "role": "user",
+    "content": "<observation>{\"valid\":false,\"errors\":[\"Не задана гранулярность\",\"Не заданы факты\"]}</observation>\nТеперь дай только ответ на исходный вопрос в одном блоке answer."
+  },
+  {
+    "role": "assistant",
+    "content": "<answer>Структура макета не прошла проверку: нет гранулярности и фактов. SQL и БД не проверялись.</answer>"
+  },
+  {
+    "role": "user",
+    "content": "Спроектируй продажи из всего учебного каталога."
+  },
+  {
+    "role": "assistant",
+    "content": "<call>{\"name\":\"catalog\",\"arguments\":{\"table\":\"all\"}}</call>"
+  },
+  {
+    "role": "user",
+    "content": "<observation>{\"tables\":{\"orders\":{\"fields\":[\"order_id\",\"customer_id\",\"order_date\",\"status\"]},\"order_items\":{\"fields\":[\"order_id\",\"line_no\",\"product_id\",\"quantity\",\"unit_price\"]},\"customers\":{\"fields\":[\"customer_id\",\"segment\"]},\"products\":{\"fields\":[\"product_id\",\"category\"]}}}</observation>\nТеперь дай только ответ на исходный вопрос в одном блоке answer."
+  },
+  {
+    "role": "assistant",
+    "content": "<answer>Предлагаю fact_sales: одна позиция заказа, ключ (order_id,line_no); меры quantity и revenue=quantity*unit_price. Измерения customer, product и date (из order_date). Для сегмента на дату продажи нужна история customers. Уточните отмены, возвраты, валюту и SLA.</answer>"
+  },
+  {
+    "role": "user",
+    "content": "Спроектируй DWH, требования неизвестны."
+  },
+  {
+    "role": "assistant",
+    "content": "<answer>Уточните: какова цель аналитики? Какие источники и ключи доступны? Какая гранулярность — что описывает одна строка? Каковы объемы, частота обновления и SLA?</answer>"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "authentication": "HTTP 200",
+  "model": "apodex/apodex-1.1-mini:free",
+  "prompt": "improved",
+  "summary": "logs\\summary_openrouter_20261009_183950.json",
+  "completed": 10,
+  "tool_ok": 9,
+  "keyword_ok": 9,
+  "scenarios": 10,
+  "usage_records": 18,
+  "reported_cost_sum": 0.0,
+  "reasoning": {
+    "effort": "none",
+    "exclude": true
+  }
+}

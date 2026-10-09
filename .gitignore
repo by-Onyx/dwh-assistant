@@ -1,0 +1,30 @@
+# Downloaded models and llama.cpp runtime
+/models/
+/runtime/
+*.gguf
+*.part
+
+# Runtime logs; committed evidence lives in evidence/
+/logs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated packages
+*.zip

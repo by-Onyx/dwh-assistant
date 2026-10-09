@@ -1,0 +1,316 @@
+[
+  {
+    "id": "orders",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Поля учебной таблицы orders: order_id, customer_id, order_date, status.",
+    "seconds": 0.34
+  },
+  {
+    "id": "items",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Поля order_items в учебном каталоге имеют следующие значения:\n- order_id: ключ заказа\n- line_no: номер строки в заказе\n- product_id: ID продукта\n- quantity: количество\n- unit_price: цена за единицу\nТакже используется внешний ключ:\n- order_id: ссылка на order_id в таблице orders\n- product_id: ссылка на product_id в таблице products",
+    "seconds": 0.59
+  },
+  {
+    "id": "missing",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true
+    ],
+    "repairs": 0,
+    "answer": "Таблица payments отсутствует в учебном каталоге.",
+    "seconds": 0.22
+  },
+  {
+    "id": "scd2",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 1,
+    "answer": "Используй учебную памятку SCD2 для хранения истории сегмента клиента с указанием surrogate key версии, business key, valid_from, valid_to, is_current. Интервалы [valid_from,valid_to) не перекрываются. Факт связывается с версией на дату события, а не текущей. Для восстановления истории необходимо использовать источник изменений/снимков и политику поздних событий.",
+    "seconds": 0.77
+  },
+  {
+    "id": "layers",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 1.72
+  },
+  {
+    "id": "quality",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 2,
+    "answer": "Проверки качества для загрузки продаж в Data Warehouse включают следующие пункты:\n\n1. **Уникальность ключей**: Убедитесь, что ключи уникальны и не повторяются.\n\n2. **NotNull**: Убедитесь, что все поля не null.\n\n3. **Связи FK**: Убедитесь, что все внешние ключи (FK) связаны правильно.\n\n4. **Quantity>0**: Убедитесь, что количество не равно нулю.\n\n5. **Unit_price>=0**: Убедитесь, что цена не меньше нуля.\n\n6. **Сверка чисел строк и сумм**: Убедитесь, что количество строк и сумма данных совпадают с источником.\n\n7. **Отсутствие пересечения SCD2-интервалов**: Убедитесь, что SCD2-интервалы не пересекаются.\n\n8. **Идемпотентная загрузка**: Убедитесь, что загрузка не меняет исходные данные.\n\nЭти проверки помогут обеспечить высокий уровень качества данных в Data Warehouse.",
+    "seconds": 2.5
+  },
+  {
+    "id": "invalid",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 0.41
+  },
+  {
+    "id": "valid",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 0.58
+  },
+  {
+    "id": "mart",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": true,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "keyword_hits": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "repairs": 1,
+    "answer": "Тема не соответствует требованиям",
+    "seconds": 0.25
+  },
+  {
+    "id": "clarify",
+    "backend": "local-1.5b",
+    "prompt": "baseline",
+    "log": "logs\\eval_local-1.5b_baseline_20261009_181701.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Поток оборвался или достигнут max_tokens; ответ не принят",
+    "seconds": 3.17
+  },
+  {
+    "id": "orders",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Таблица orders содержит следующие поля: order_id (ключ), customer_id (ключ), order_date (дата), status (статус). Связь с таблицей customers: customer_id.",
+    "seconds": 0.53
+  },
+  {
+    "id": "items",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Поля и ключи для таблицы order_items: grain — одна позиция заказа, pk — (order_id, line_no), fields — order_id, line_no, product_id, quantity, unit_price, fk — order_id — orders.order_id, product_id — products.product_id.",
+    "seconds": 0.45
+  },
+  {
+    "id": "missing",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true
+    ],
+    "repairs": 0,
+    "answer": "Таблица payments отсутствует в учебном каталоге.",
+    "seconds": 0.23
+  },
+  {
+    "id": "scd2",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Предлагаю SCD2: surrogate key версии, business key, valid_from, valid_to, is_current. Интервалы [valid_from,valid_to) не перекрываются. Факт связывается с версией на дату события, а не текущей. Нужен источник изменений/снимков и политика поздних событий. Учебный customers хранит только текущее состояние; историю восстановить нельзя.",
+    "seconds": 0.67
+  },
+  {
+    "id": "layers",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Предлагаю слои DWH: raw (исходные загрузки с источником и временем), staging (типизация/дедупликация), core (интеграция/история), marts (бизнес-факты и измерения). Для небольшой задачи слои можно упростить. CDC, расписание, объем и SLA требуют уточнения.",
+    "seconds": 0.69
+  },
+  {
+    "id": "quality",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Проверки качества для загрузки продаж: уникальность ключей, не null, связи FK, quantity>0, unit_price>=0, сверка числа строк и сумм с источником, отсутствие пересечения SCD2-интервалов, идемпотентная загрузка.",
+    "seconds": 0.5
+  },
+  {
+    "id": "invalid",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Структура макета не прошла проверку: нет гранулярности и фактов. SQL и БД не проверялись.",
+    "seconds": 0.38
+  },
+  {
+    "id": "valid",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Структура макета прошла проверку: все поля заполнены, нет дубликатов списков. SQL и реальные данные не проверялись.",
+    "seconds": 0.47
+  },
+  {
+    "id": "mart",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": false,
+    "keyword_hits": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "repairs": 1,
+    "answer": "Структура макета прошла проверку: все поля заполнены и нет дубликатов списков. SQL и реальные данные не проверялись.",
+    "seconds": 1.39
+  },
+  {
+    "id": "clarify",
+    "backend": "local-1.5b",
+    "prompt": "improved",
+    "log": "logs\\eval_local-1.5b_improved_20261009_181701.log",
+    "completed": false,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "error": "Формат не исправлен после двух повторов",
+    "seconds": 1.41
+  }
+]

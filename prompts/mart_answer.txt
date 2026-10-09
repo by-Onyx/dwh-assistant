@@ -1,0 +1,7 @@
+Спроектируй витрину продаж. Верни пять коротких строк:
+1. Гранулярность: одна позиция заказа; составной ключ (order_id, line_no).
+2. Меры: quantity; revenue = quantity * unit_price. Обязательно напиши эту формулу.
+3. Измерения: customer, product, date из order_date.
+4. Связи: order_items с orders ТОЛЬКО по order_id; с products по product_id; orders с customers по customer_id. line_no НЕ поле orders.
+5. Для сегмента на дату продажи нужна история customers и SCD2. Уточни отмены, возвраты, валюту и SLA.
+Это проект, не исполненная проверка. Не упоминай valid или проверку макета.

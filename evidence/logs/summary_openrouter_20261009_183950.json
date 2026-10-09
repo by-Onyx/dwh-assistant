@@ -1,0 +1,174 @@
+[
+  {
+    "id": "orders",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "В учебной таблице orders есть следующие поля: order_id, customer_id, order_date, status.\n\nКлючевое поле (первичный ключ) — order_id.\n\nЗерно таблицы (grain) — один заказ.",
+    "seconds": 2.64
+  },
+  {
+    "id": "items",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Таблица order_items имеет зерно «одна позиция заказа». Её поля: order_id, line_no, product_id, quantity, unit_price. Ключ составной: order_id и line_no. Поле line_no уникально только внутри одного заказа. Внешние ключи: order_id ссылается на orders.order_id, product_id — на products.product_id.",
+    "seconds": 2.98
+  },
+  {
+    "id": "missing",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true
+    ],
+    "repairs": 0,
+    "answer": "Таблица отсутствует в учебном каталоге. Доступны: orders, order_items, customers, products.",
+    "seconds": 1.19
+  },
+  {
+    "id": "scd2",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Для хранения истории сегмента клиента используйте SCD2: surrogate key версии, business key, интервалы valid_from и valid_to, флаг is_current. Интервалы [valid_from, valid_to) не должны пересекаться. Факт продажи связывается с версией сегмента, актуальной на дату события, а не с текущей.\n\nДля этого требуются источник изменений или снимки, а также политика обработки поздних событий. Однако в учебной БД таблица customers хранит только текущее состояние, поэтому восстановить историю сегментов невозможно.",
+    "seconds": 2.81
+  },
+  {
+    "id": "layers",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Согласно учебной памятке, стандартная архитектура DWH включает четыре слоя: raw — исходные загрузки с указанием источника и времени; staging — типизация и дедупликация; core — интеграция данных и ведение истории; marts — бизнес-факты и измерения. Для небольших задач слои можно упростить. Вопросы по CDC, расписанию, объему данных и SLA требуют дополнительного уточнения.",
+    "seconds": 3.19
+  },
+  {
+    "id": "quality",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Для загрузки продаж согласно памятке quality нужны следующие проверки: уникальность ключей, отсутствие NULL только в обязательных полях, корректность связей FK, положительное количество (quantity>0), неотрицательная цена (unit_price>=0), сверка числа строк и сумм с источником, отсутствие пересечений интервалов SCD2 и идемпотентность загрузки. Важно помнить, что это перечень необходимых проверок, а не результат их фактического исполнения.",
+    "seconds": 3.45
+  },
+  {
+    "id": "invalid",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Структура макета не прошла проверку. Ошибки: не задана гранулярность, не заданы факты.\n\nSQL, бизнес-смысл и реальные данные не проверялись.",
+    "seconds": 2.39
+  },
+  {
+    "id": "valid",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Структура макета прошла проверку: обязательные поля заполнены, дубликатов в списках нет. SQL, бизнес-смысл и реальные данные не проверялись.",
+    "seconds": 2.89
+  },
+  {
+    "id": "mart",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": false,
+    "keyword_ok": false,
+    "keyword_hits": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "repairs": 0,
+    "answer": "Структура макета прошла проверку: обязательные поля заполнены, дубликатов в списках нет. SQL, бизнес-смысл и реальные данные не проверялись.",
+    "seconds": 2.64
+  },
+  {
+    "id": "clarify",
+    "backend": "openrouter",
+    "prompt": "improved",
+    "log": "logs\\eval_openrouter_improved_20261009_183950.log",
+    "completed": true,
+    "tool_ok": true,
+    "keyword_ok": true,
+    "keyword_hits": [
+      true,
+      true,
+      true
+    ],
+    "repairs": 0,
+    "answer": "Уточните: какова цель аналитики? Какие источники и ключи доступны? Какая гранулярность — что считается одной строкой факта? Каковы объемы, частота обновления и SLA?",
+    "seconds": 1.28
+  }
+]

@@ -1,0 +1,13 @@
+DWH assistant | qwen2.5-3b | учебные данные | log: C:\Users\by_Onyx\Documents\ChatGPT\Курс AI-агенты\logs\chat_local-3b_20261009_183127.log
+/exit — выход, /reset — очистить историю. Поток показывает протокол модели.
+
+Вы: Ассистент: <call>{"name":"catalog","arguments":{"table":"products"}}</call>Поля учебной таблицы products: product_id, product_name, category. Ключ: product_id.
+
+Вы: Ассистент: <answer>У таблицы products ключ product_id.</answer>
+
+Вы: 
+Вы: Ассистент: <call>{"name":"rules","arguments":{"topic":"grain"}}</call>Нет, суммировать цены за единицу нельзя, так как цена за единицу не аддитивна.
+
+Вы: Чат завершен.
+
+STDERR:

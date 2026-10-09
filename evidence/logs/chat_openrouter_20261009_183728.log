@@ -1,0 +1,4 @@
+{"timestamp": "2026-10-09T13:37:28.724910+00:00", "event": "user", "content": "Покажи поля учебной таблицы orders."}
+{"timestamp": "2026-10-09T13:37:29.840907+00:00", "event": "model", "content": "\n\n<call>{\"name\":\"catalog\",\"arguments\":{\"table\":\"orders\"}}</call>", "seconds": 1.109, "step": 0}
+{"timestamp": "2026-10-09T13:37:29.841428+00:00", "event": "tool", "name": "catalog", "arguments": {"table": "orders"}, "result": {"source": "учебные константы", "table": "orders", "grain": "один заказ", "pk": ["order_id"], "fields": ["order_id", "customer_id", "order_date", "status"], "fk": {"customer_id": "customers.customer_id"}}}
+{"timestamp": "2026-10-09T13:37:33.265396+00:00", "event": "error", "message": "Поток оборвался или достигнут max_tokens; ответ не принят"}

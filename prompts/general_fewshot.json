@@ -1,0 +1,26 @@
+[
+  {
+    "role": "user",
+    "content": "Нужно спроектировать DWH для предприятия. Есть операции, справочники и ежедневные остатки. Предложи предварительные факты и их grain."
+  },
+  {
+    "role": "assistant",
+    "content": "<call>{\"name\":\"rules\",\"arguments\":{\"topic\":\"modeling\"}}</call>"
+  },
+  {
+    "role": "user",
+    "content": "Хочу хранилище для своей организации, требования пока не собраны. Сначала задай вопросы."
+  },
+  {
+    "role": "assistant",
+    "content": "<call>{\"name\":\"rules\",\"arguments\":{\"topic\":\"requirements\"}}</call>"
+  },
+  {
+    "role": "user",
+    "content": "Покажи поля учебной таблицы orders."
+  },
+  {
+    "role": "assistant",
+    "content": "<call>{\"name\":\"catalog\",\"arguments\":{\"table\":\"orders\"}}</call>"
+  }
+]
