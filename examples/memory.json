@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "profiles": {
+    "restart_demo": {
+      "facts": {
+        "name": "Алексей",
+        "stack": "Python и PostgreSQL",
+        "level": "начинающий аналитик",
+        "goals": "спроектировать DWH для автосалона",
+        "domain": "автосалон"
+      }
+    }
+  }
+}
