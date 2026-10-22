@@ -72,7 +72,7 @@ class Tests(unittest.TestCase):
                 pass
             def __iter__(self):
                 return iter([b": heartbeat\n", b'data: {"choices":[{"delta":{"content":"<answer>ok</answer>"},"finish_reason":null}]}\n', b'data: {"choices":[{"delta":{},"finish_reason":"stop"}]}\n', b"data: [DONE]\n"])
-        with patch("assistant.request.urlopen", return_value=Response()) as send:
+        with patch("dwh_agent.transport.request.urlopen", return_value=Response()) as send:
             self.assertEqual(Client("local-3b").complete([]), "<answer>ok</answer>")
             payload = json.loads(send.call_args.args[0].data)
             self.assertNotIn("tools", payload)

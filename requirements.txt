@@ -1,0 +1,8 @@
+# Homework 2: tested direct dependencies. Homework 1 still uses only stdlib.
+langchain-core==1.6.12
+pydantic==2.14.1
+filelock==3.32.7
+notebook==7.6.3
+ipywidgets==8.1.9
+nbclient==0.11.0
+nbformat==5.11.1

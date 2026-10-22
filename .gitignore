@@ -28,3 +28,10 @@ Thumbs.db
 
 # Generated packages
 *.zip
+
+# Personal long-term memory; examples/memory.json is synthetic submission data
+/memory.json
+/memory.json.*
+*.lock
+*.tmp
+.ipynb_checkpoints/
