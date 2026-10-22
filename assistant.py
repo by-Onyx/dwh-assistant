@@ -1,106 +1,16 @@
-"""Stdlib streaming client; calls parsed from ordinary response content."""
+"""Homework 1 REPL; shared transport/protocol are re-exported for compatibility."""
 import argparse
 import json
-import os
 from pathlib import Path
 import re
 import sys
 import time
-from datetime import datetime, timezone
-from urllib import request, error
+from datetime import datetime
 from dwh_tools import dispatch
-
-ROOT = Path(__file__).resolve().parent
-
-class ProtocolError(ValueError):
-    pass
-
-def parse_response(text):
-    if len(text) > 30000:
-        raise ProtocolError("Ответ слишком длинный")
-    m = re.fullmatch(r"\s*<(call|answer)>([\s\S]*?)</\1>\s*", text)
-    if not m:
-        raise ProtocolError("Нужен один блок <call>JSON</call> или <answer>текст</answer>")
-    kind, body = m.groups()
-    if kind == "answer":
-        if not body.strip() or re.search(r"</?(?:call|answer)>", body):
-            raise ProtocolError("Пустой ответ или вложенный блок")
-        return kind, body.strip()
-    def unique(pairs):
-        result = {}
-        for k, v in pairs:
-            if k in result:
-                raise ProtocolError("Повторяющийся JSON-ключ")
-            result[k] = v
-        return result
-    def bad_constant(x):
-        raise ProtocolError("Недопустимое число")
-    try:
-        call = json.loads(body, object_pairs_hook=unique, parse_constant=bad_constant)
-    except (ValueError, RecursionError) as exc:
-        raise ProtocolError(f"Некорректный JSON: {exc}") from exc
-    if not isinstance(call, dict) or set(call) != {"name", "arguments"} or not isinstance(call["name"], str) or not isinstance(call["arguments"], dict):
-        raise ProtocolError("JSON: только name (строка) и arguments (объект)")
-    return kind, call
-
-class EventLog:
-    def __init__(self, path):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        self.path = path
-    def write(self, event, **data):
-        with self.path.open("a", encoding="utf-8") as out:
-            out.write(json.dumps({"timestamp": datetime.now(timezone.utc).isoformat(), "event": event, **data}, ensure_ascii=False) + "\n")
-
-class Client:
-    def __init__(self, backend, model=None, max_tokens=550, temperature=0.1):
-        self.backend = backend
-        self.config = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))[backend]
-        self.model = (model or os.getenv("OPENROUTER_MODEL", "") or self.config["model"]) if backend == "openrouter" else (model or self.config["model"])
-        self.key = os.getenv(self.config.get("key_env", ""), "")
-        if backend == "openrouter" and (not self.key or not self.model):
-            raise ValueError("Задайте OPENROUTER_API_KEY и OPENROUTER_MODEL (или --model). Ключ не логируется.")
-        self.max_tokens, self.temperature = max_tokens, temperature
-
-    def complete(self, messages, emit=None):
-        # No native tools/function calling, tool_choice, response_format or MCP.
-        payload = {"model": self.model, "messages": messages, "stream": True, "temperature": self.temperature, "max_tokens": self.max_tokens, "seed": 42, "stop": ["\nObservation:", "\n<answer>", "\nПользователь:", "\nАссистент:"]}
-        if self.backend == "openrouter" and self.config.get("reasoning"):
-            payload["reasoning"] = self.config["reasoning"]
-        self.last_usage = None
-        headers = {"Content-Type": "application/json", "Accept": "text/event-stream"}
-        if self.key:
-            headers["Authorization"] = "Bearer " + self.key
-        req = request.Request(self.config["base_url"] + "/chat/completions", data=json.dumps(payload, ensure_ascii=False).encode(), headers=headers)
-        chunks, done, finish = [], False, None
-        try:
-            with request.urlopen(req, timeout=180) as response:
-                for raw in response:
-                    line = raw.decode("utf-8").strip()
-                    if not line.startswith("data:"):
-                        continue
-                    data = line[5:].strip()
-                    if data == "[DONE]":
-                        done = True
-                        break
-                    item = json.loads(data)
-                    if item.get("usage") is not None:
-                        self.last_usage = item["usage"]
-                    if item.get("error"):
-                        raise RuntimeError("Ошибка провайдера в потоке")
-                    for choice in item.get("choices", []):
-                        finish = choice.get("finish_reason") or finish
-                        chunk = choice.get("delta", {}).get("content") or ""
-                        chunks.append(chunk)
-                        if emit and chunk:
-                            emit(chunk)
-        except error.HTTPError as exc:
-            raise RuntimeError(f"HTTP {exc.code}: проверьте модель, доступ и параметры") from None
-        if not done or finish == "length":
-            raise RuntimeError("Поток оборвался или достигнут max_tokens; ответ не принят")
-        text = "".join(chunks)
-        if not text.strip():
-            raise RuntimeError("Пустой ответ модели")
-        return text
+from dwh_agent.paths import ROOT
+from dwh_agent.transport import Client
+from dwh_agent.event_log import EventLog
+from dwh_agent.protocol import ProtocolError, parse_response
 
 class Agent:
     def __init__(self, client, prompt="improved", log=None):
