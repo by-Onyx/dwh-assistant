@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dwh-assistant-labs"
+version = "0.3.0"
+description = "DWH assistant course labs: manual tools and LangChain fact memory"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+dwh-chat = "dwh_agent.practicum.launcher:main"
+dwh-assistant = "dwh_agent.practicum.assistant:main"
+dwh-memory-demo = "dwh_agent.restart_demo:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["dwh_agent*"]
