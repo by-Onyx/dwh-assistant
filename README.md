@@ -8,6 +8,7 @@
 |---|---|---|
 | [01. DWH-агент](labs/01_dwh_agent/README.md) | Консольный чат, ручной разбор вызовов функций, сравнение промптов | [Пример автосалона: запрос и неизмененный ответ](labs/01_dwh_agent/examples/car_dealership.md) |
 | [02. LangChain и память фактов](labs/02_fact_memory/README.md) | Профиль в JSON, буфер реплик и сводка, выбор сложности по уровню знаний | [Notebook](labs/02_fact_memory/notebooks/02_fact_memory.ipynb) · [Пример памяти](labs/02_fact_memory/examples/memory.json) |
+| [03. RAG в диалоге](labs/03_rag/README.md) | Векторный поиск по регламентам DWH, ответы с источниками | [Выполненный Notebook](labs/03_rag/notebooks/03_rag.ipynb) · [Отчёт](labs/03_rag/reports/homework_3.md) |
 
 ## Быстрый старт
 
@@ -41,7 +42,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_notebook.ps1
 $env:DWH_ASSETS_DIR = 'D:\папка-с-моделями-и-runtime'
 ```
 
-Эту переменную используют обе лабораторные. Для CLI также доступен `--assets-dir`, для скриптов — `-AssetsDir`. Инструкции по CPU, OpenRouter, командам чата и перезапуску находятся в README соответствующей работы.
+Эту переменную используют все три лабораторные. Для CLI также доступен `--assets-dir`, для скриптов — `-AssetsDir`. Инструкции по CPU, OpenRouter, командам чата и перезапуску находятся в README соответствующей работы.
+
+**Лабораторная 03 — чат с локальным векторным поиском.** После установки пакета, зависимостей Notebook и регистрации ядра выполните:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/setup_models.ps1 -IncludeRag
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_notebook.ps1 -Lab 03
+```
+
+При хранении моделей вне репозитория передайте один и тот же `-AssetsDir` обоим скриптам. [Описание лабораторной 03](labs/03_rag/README.md).
 
 ## Структура
 
@@ -49,7 +59,8 @@ $env:DWH_ASSETS_DIR = 'D:\папка-с-моделями-и-runtime'
 labs/
   01_dwh_agent/        README, запуск, промпты, примеры, отчеты и доказательства работы 01
   02_fact_memory/     README, Notebook, память-пример, промпты и результаты работы 02
-src/dwh_agent/        общий Python-пакет и реализация обеих лабораторных
+  03_rag/             база знаний, Notebook и отчёт по векторному поиску
+src/dwh_agent/        общий Python-пакет и реализация лабораторных
 configs/             профили серверов и манифест моделей
 scripts/             установка моделей и запуск Notebook
 requirements/        зависимости Notebook и проверенный снимок окружения

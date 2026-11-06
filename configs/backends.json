@@ -18,5 +18,9 @@
   "local-4b": {
     "base_url": "http://127.0.0.1:8082/v1",
     "model": "qwen3-4b"
+  },
+  "local-embedding": {
+    "base_url": "http://127.0.0.1:8083/v1",
+    "model": "qwen3-embedding-0.6b"
   }
 }
