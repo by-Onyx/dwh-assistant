@@ -7,7 +7,7 @@
 | Работа | Содержание | Материалы |
 |---|---|---|
 | [01. DWH-агент](labs/01_dwh_agent/README.md) | Консольный чат, ручной разбор вызовов функций, сравнение промптов | [Пример автосалона: запрос и неизмененный ответ](labs/01_dwh_agent/examples/car_dealership.md) |
-| [02. LangChain и память фактов](labs/02_fact_memory/README.md) | Память в JSON, профили, восстановление после перезапуска, отдельная служебная CELL | [Notebook](labs/02_fact_memory/notebooks/02_fact_memory.ipynb) · [Пример памяти](labs/02_fact_memory/examples/memory.json) |
+| [02. LangChain и память фактов](labs/02_fact_memory/README.md) | Профиль в JSON, буфер реплик и сводка, выбор сложности по уровню знаний | [Notebook](labs/02_fact_memory/notebooks/02_fact_memory.ipynb) · [Пример памяти](labs/02_fact_memory/examples/memory.json) |
 
 ## Быстрый старт
 

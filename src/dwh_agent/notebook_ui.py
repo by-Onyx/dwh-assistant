@@ -8,7 +8,7 @@ class NotebookChat:
         self.on_close = lambda: None
         self.service_output = widgets.Output(layout={"border": "1px solid #ccc", "max_height": "280px", "overflow": "auto"})
         self.chat_output = widgets.Output(layout={"border": "1px solid #aaa", "min_height": "140px"})
-        self.input = widgets.Textarea(placeholder="Сообщение; /memory, /forget поле, /clear или /exit", layout={"width": "100%", "height": "90px"})
+        self.input = widgets.Textarea(placeholder="Сообщение; /remember поле значение, /practice, /memory, /forget поле, /clear или /exit", layout={"width": "100%", "height": "90px"})
         self.send = widgets.Button(description="Отправить", button_style="primary", disabled=True)
         self.send.on_click(self._submit)
         self.chat_box = widgets.VBox([self.chat_output, self.input, self.send])
@@ -31,19 +31,22 @@ class NotebookChat:
         closed = False
         try:
             if message == "/memory":
-                self.service({"event": "memory_view", **self.agent.memory.load_memory_variables()})
+                self.service({"event": "memory_view", **self.agent.memory.load_memory_variables(),
+                              "summary": self.agent.dialogue.summary, "buffer_turns": len(self.agent.dialogue.turns)})
             elif message == "/clear":
-                self.agent.memory.forget()
+                self.agent.forget()
                 self.service({"event": "profile_cleared", "user_id": self.agent.memory.user_id})
             elif message.startswith("/forget "):
-                self.agent.memory.forget(message.split(maxsplit=1)[1])
+                self.agent.forget(message.split(maxsplit=1)[1])
                 self.service({"event": "fact_forgotten", **self.agent.memory.load_memory_variables()})
             elif message == "/exit":
                 self.on_close()
                 closed = True
                 self.service({"event": "chat_closed", "memory": "сохранена"})
-            elif message.startswith("/"):
-                self.service({"event": "unknown_command", "commands": ["/memory", "/forget name", "/clear", "/exit"]})
+            elif message.split(maxsplit=1)[0] == "/remember":
+                self.agent.ask(message)
+            elif message.startswith("/") and message != "/practice":
+                self.service({"event": "unknown_command", "commands": ["/practice", "/remember level новичок", "/memory", "/forget name", "/clear", "/exit"]})
             else:
                 self.chat_output.append_stdout("Вы: " + message + "\n")
                 result = self.agent.ask(message)
