@@ -10,6 +10,7 @@ from urllib.request import urlopen
 from .paths import BACKENDS_CONFIG, DEFAULT_ASSETS_DIR, LOG_DIR
 
 LOCAL_MODELS = {
+    "local-embedding": "Qwen3-Embedding-0.6B-Q8_0.gguf",
     "local-1.5b": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
     "local-3b": "qwen2.5-3b-instruct-q4_k_m.gguf",
     "local-4b": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
@@ -48,6 +49,7 @@ class LocalServer:
                 str(exe), "-m", str(model), "--host", "127.0.0.1", "--port", str(self.port),
                 "-c", "8192", "-np", "1", "-ngl", "0" if self.cpu else "99",
                 "--alias", self.config["model"],
+                *(["--embedding", "--pooling", "last"] if self.backend == "local-embedding" else []),
             ], stdout=self._log, stderr=subprocess.STDOUT,
                creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
             deadline = time.monotonic() + self.timeout

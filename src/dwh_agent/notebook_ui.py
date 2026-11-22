@@ -50,7 +50,10 @@ class NotebookChat:
             else:
                 self.chat_output.append_stdout("Вы: " + message + "\n")
                 result = self.agent.ask(message)
-                self.chat_output.append_stdout("Ассистент: " + result["answer"] + "\n\n")
+                reply = result["answer"]
+                if "sources" in result:
+                    reply += "\nНайденные материалы: " + ("; ".join(result["sources"]) or "нет совпадений")
+                self.chat_output.append_stdout("Ассистент: " + reply + "\n\n")
         except Exception as exc:
             self.service({"event": "error", "type": type(exc).__name__, "message": str(exc)})
         finally:

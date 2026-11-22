@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$AssetsDir)
+param([string]$AssetsDir, [switch]$IncludeRag)
 
 $ErrorActionPreference = 'Stop'
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
@@ -18,6 +18,7 @@ if (-not (Test-Path -LiteralPath $Server)) {
 $ManifestPath = Join-Path $ProjectRoot 'configs\model_manifest.json'
 $Manifest = Get-Content -LiteralPath $ManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
 foreach ($model in $Manifest) {
+    if ($model.optional -eq "rag" -and -not $IncludeRag) { continue }
     $Target = [IO.Path]::GetFullPath((Join-Path $ModelsDir $model.file))
     if (-not $Target.StartsWith($ModelsDir + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Model path escapes models directory' }
     if (-not (Test-Path -LiteralPath $Target)) {
